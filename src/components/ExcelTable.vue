@@ -1,4 +1,5 @@
 <template>
+    <div style="left:0">{{ countDown }}</div>
     <div class="handsontable" id="example">
     <table class="htCore">
       <colgroup>
@@ -16,7 +17,7 @@
       </thead>
 
       <tbody>
-        <tr v-for="(list, index) in lists" :key="list[keys[0]]" >
+        <tr v-for="(list, index) in lists" :key="list" >
           <td v-for="(key, index2) in keys" :key="key">
               <input  
                 type="text" 
@@ -49,6 +50,8 @@ export default {
             keyPress: {},
             edit: false,
             changedRow: [],
+            countDown: 0,
+            count: null,
         }
     },
     props: {
@@ -67,13 +70,31 @@ export default {
     },
     methods: {
       changed(ev) {
+        console.log(ev)
+        this.edit = false
         for(let i = 0; i < this.headers.length; i++) {
           document.getElementById(`input${ev+""+i}`).style.fontWeight = "bold"
         }
         if(!this.changedRow.includes(ev)) {
           this.changedRow.push(ev)
         }
-        console.log(this.changedRow)
+        this.startCountDown()
+      },
+      startCountDown() {
+        clearInterval(this.count)
+        this.reduceCount("start")
+        this.count = setInterval(() => { this.reduceCount() }, 1000)
+      },
+      reduceCount(ev) {
+        if(ev == "start") {
+          this.countDown = 10
+          return
+        } if(!this.countDown) {
+          console.log("selesai")
+          clearInterval(this.count)
+          return
+        }
+        this.countDown = this.countDown - 1
       },
       position(row, col) {
         this.positionCol = col
@@ -81,7 +102,6 @@ export default {
       },
 
       focusNow() {
-        // console.log(`input${this.positionRow+""+this.positionCol}`)
         document.getElementById(`input${this.positionRow+""+this.positionCol}`).focus()
       },
 
@@ -248,6 +268,7 @@ export default {
 <style scoped>
 .handsontable {
   position: relative;
+  align-items: center;
 }
 
 .handsontable.htAutoColumnSize {
