@@ -1,5 +1,5 @@
 <template>
-    <div style="left:0">{{ countDown }}</div>
+    <div class="countDown">{{ countDown ? "Data would auto save in "+ countDown + " second" : "Nothing change" }}</div>
     <div class="handsontable" id="example">
     <table class="htCore">
       <colgroup>
@@ -68,6 +68,7 @@ export default {
         required: true,
       }
     },
+    emits: ["changed"],
     methods: {
       changed(ev) {
         console.log(ev)
@@ -91,6 +92,7 @@ export default {
           return
         } if(!this.countDown) {
           console.log("selesai")
+          this.$emit("changed", this.changeRow)
           clearInterval(this.count)
           return
         }
@@ -301,7 +303,10 @@ export default {
   -ms-user-select: none;
   /*user-select: none; /*no browser supports unprefixed version*/
   border-spacing: 0;
-  margin: 0;
+  /* margin: 0;
+   */
+  margin-left: auto;
+  margin-right: auto;
   border-width: 0;
   table-layout: fixed;
   width: 0;
@@ -774,8 +779,14 @@ input:focus {
   outline: none;
 }
 
-.focused {
-  background-color: #5292F7;
+.countDown {
+  position: relative;
+  background-color: gray;
+  padding: 15px;
+  margin-bottom: 
+  20px;opacity: 
+  40%;font-size: 
+  30px;
 }
 
 </style>

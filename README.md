@@ -22,7 +22,7 @@ I just wanna make html table but like excel style, just table only not the sprea
 
 - [ ] width cell auto fit with the length string, wrap the text if width is on maximum
 - [x] Make row bold when the row changed
-- [ ] Auto send an changed event to the parent component after 10 second of changed cell
+- [x] Auto send an changed event to the parent component after 10 second of changed cell
 
 # How to add this component to your project?
 
