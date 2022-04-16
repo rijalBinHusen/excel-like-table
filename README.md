@@ -5,8 +5,8 @@ I just wanna make html table but like excel style, just table only not the sprea
 ---
 
 ## todo
-- [ ] Keyboard event in spreadsheet style
-  [ ] Arrow right to navigation to right cell
+- Keyboard event in spreadsheet style
+  [x] Arrow right to navigation to right cell
   [x] Arrow left to navigation to the before cell
   [ ] Arrow up to navigation to up cell
   [ ] Arrow down to navigation to bottom cell

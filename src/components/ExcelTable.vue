@@ -178,6 +178,7 @@ export default {
         if(row === "upLeft") {
           this.positionCol = 0
           this.positionRow = 0
+          return
         }
 
         this.positionCol = col
@@ -185,8 +186,7 @@ export default {
       },
 
       focusNow() {
-        let res = document.getElementById(`input${this.positionRow+""+this.positionCol}`)
-        res.focus()
+        document.getElementById(`input${this.positionRow+""+this.positionCol}`).focus()
       },
 
       releaseKey(event) {
@@ -221,14 +221,19 @@ export default {
           return
         }
 
+        // Arrow left
         if(this.keyPress.ArrowLeft) {
+          // mentok diatas
+          let up = this.positionCol === 0
+          // mentok dikiri
+          let left = this.positionRow === 0
           //jika sudah mentok diatas kiri
-          if(this.positionCol === 0 && this.positionRow === 0) {
+          if(left && up) {
             //akhir cell = panjang heads + panjang row
             this.position("bottomRight")
           }
           //jika sudah mentok dikiri
-          if(this.positionCol === 0) {
+          else if(left) {
             //naik ke atas, row - 1
             this.positionRow = this.positionRow - 1
             this.positionCol = this.headers.length - 1
@@ -240,9 +245,27 @@ export default {
           this.focusNow()
         }
 
+        // Arrow right
         if(this.keyPress.ArrowRight) {
-          console.log("Arah Kanan")
-          return
+          // mentok bawah
+          let bottom = this.positionRow === (this.lists.length -1)
+          // mentok kanan
+          let right = this.positionCol === (this.headers.length -1)
+          //jika sudah mentok dibawah kanan
+          if(bottom && right) {
+            this.position("upLeft")
+          }
+          //jika sudah mentok kanan
+          else if(right) {
+            //turun kebawah, row + 1
+            this.positionRow = this.positionRow + 1
+            this.positionCol = 0
+          }
+          //normal
+          else {
+            this.positionCol = this.positionCol + 1
+          }
+          this.focusNow()
         }
 
         if(this.keyPress.ArrowUp) {
