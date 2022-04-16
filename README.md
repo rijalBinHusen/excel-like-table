@@ -8,7 +8,7 @@ I just wanna make html table but like excel style, just table only not the sprea
 - Keyboard event in spreadsheet style
   [x] Arrow right to navigation to right cell
   [x] Arrow left to navigation to the before cell
-  [ ] Arrow up to navigation to up cell
+  [x] Arrow up to navigation to up cell
   [ ] Arrow down to navigation to bottom cell
   [ ] Ctrl + Arrow right to navigation to the right end cell
   [ ] Ctrl + Arrow left to navigation to the left end cell

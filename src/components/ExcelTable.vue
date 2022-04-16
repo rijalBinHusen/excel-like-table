@@ -268,9 +268,13 @@ export default {
           this.focusNow()
         }
 
+        //Arrow up
         if(this.keyPress.ArrowUp) {
-          console.log("Arah Atas")
-          return
+          // jika tidak mentokk atas
+          if(this.positionRow !== 0) {
+            this.positionRow = this.positionRow - 1
+          }
+          this.focusNow()
         }
 
         if(this.keyPress.ArrowDown) {
