@@ -20,10 +20,10 @@ I just wanna make html table but like excel style, just table only not the sprea
   [x] Shift + tab to the left cell
   [x] Enter to the bottom cell
   [x] Shift + enter to the up cell
-  [ ] F2 to edit the cell (optional)
+  [x] F2 to edit the cell
 
 - [ ] width cell auto fit with the length string, wrap the text if width is on maximum
-- [ ] Make row bold when the row changed
+- [x] Make row bold when the row changed
 - [ ] Auto send an changed event to the parent component after 10 second of changed cell
 
 # How to add this component to your project?
