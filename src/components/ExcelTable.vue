@@ -169,23 +169,52 @@ export default {
     },
     methods: {
       position(row, col) {
-        if(row === "bottomRight") {
-          this.positionCol = this.headers.length
-          this.positionRow = this.lists.length - 1
-          return
-        }
-
-        if(row === "upLeft") {
-          this.positionCol = 0
-          this.positionRow = 0
-          return
-        }
-
         this.positionCol = col
         this.positionRow = row
       },
 
+      goLeft() {
+        if(this.positionCol !== 0) {
+          this.positionCol = this.positionCol - 1
+          return
+        }
+        this.goUpRow()
+        this.goEndCol()
+      },
+      goRight() {
+        if(this.positionCol !== (this.headers.length -1)) {
+          this.positionCol = this.positionCol + 1
+          return
+        }
+      },
+      goBeginCol() {
+        this.positionCol = 0
+      },
+      goEndCol() {
+        this.positionCol = this.headers.length - 1
+      },
+      goUpRow(){
+        if(this.positionRow !== 0) {
+          this.positionRow = this.positionRow - 1
+          return
+        }
+        this.goEndRow()
+      },
+      goDownRow(){
+        if(this.positionRow !== (this.lists.length - 1)) {
+          this.positionRow = this.positionRow + 1
+          return
+        }
+      },
+      goBeginRow() {
+        this.positionRow = 0
+      },
+      goEndRow() {
+        this.positionRow = this.lists.length - 1
+      },
+
       focusNow() {
+        console.log(this.positionRow+" "+this.positionCol)
         document.getElementById(`input${this.positionRow+""+this.positionCol}`).focus()
       },
 
@@ -223,26 +252,28 @@ export default {
 
         // Arrow left
         if(this.keyPress.ArrowLeft) {
-          // mentok diatas
-          let up = this.positionCol === 0
-          // mentok dikiri
-          let left = this.positionRow === 0
-          //jika sudah mentok diatas kiri
-          if(left && up) {
-            //akhir cell = panjang heads + panjang row
-            this.position("bottomRight")
-          }
-          //jika sudah mentok dikiri
-          else if(left) {
-            //naik ke atas, row - 1
-            this.positionRow = this.positionRow - 1
-            this.positionCol = this.headers.length - 1
-          }
-          //normal
-          else {
-            this.positionCol = this.positionCol - 1
-          }
+          this.goLeft()
           this.focusNow()
+          // // mentok diatas
+          // let up = this.positionCol === 0
+          // // mentok dikiri
+          // let left = this.positionRow === 0
+          // //jika sudah mentok diatas kiri
+          // if(left && up) {
+          //   //akhir cell = panjang heads + panjang row
+          //   this.position("bottomRight")
+          // }
+          // //jika sudah mentok dikiri
+          // else if(left) {
+          //   //naik ke atas, row - 1
+          //   this.positionRow = this.positionRow - 1
+          //   this.positionCol = this.headers.length - 1
+          // }
+          // //normal
+          // else {
+          //   this.positionCol = this.positionCol - 1
+          // }
+          // this.focusNow()
         }
 
         // Arrow right
@@ -278,8 +309,11 @@ export default {
         }
 
         if(this.keyPress.ArrowDown) {
-          console.log("Arah bawah")
-          return
+          // jika tidak mentokk bawah
+          if(this.positionRow !== (this.lists.length - 1)) {
+            this.positionRow = this.positionRow + 1
+          }
+          this.focusNow()
         }
 
         if(this.keyPress.F2) {
