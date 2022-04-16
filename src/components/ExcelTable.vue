@@ -18,7 +18,7 @@
       <tbody>
         <tr v-for="(list, index) in lists" :key="list[keys[0]]" >
           <td v-for="(key, index2) in keys" :key="key" class="">
-              <input size="103" :id="index + index2" type="text" :value="list[key]">
+              <input @click="position(index, index2)" size="103" :id="'input'+index + index2" type="text" :value="list[key]">
             </td>
         </tr>  
       </tbody>
@@ -38,7 +38,8 @@
 export default {
     data() {
         return {
-            position: 11,
+            positionCol: 0,
+            positionRow: 0,
             headers: ["Nama", "Alamat Email", "Nomor telephone", "Kota"],
             lists: [
               {
@@ -163,12 +164,30 @@ export default {
               }
             ],
             keys: ["name", "email", "phone", "city"],
-            totalRow: Array.from(Array(10).keys()),
-            totalCol: Array.from(Array(10).keys()),
             keyPress: {},
         }
     },
     methods: {
+      position(row, col) {
+        if(row === "bottomRight") {
+          this.positionCol = this.headers.length
+          this.positionRow = this.lists.length - 1
+          return
+        }
+
+        if(row === "upLeft") {
+          this.positionCol = 0
+          this.positionRow = 0
+        }
+
+        this.positionCol = col
+        this.positionRow = row
+      },
+
+      focusNow() {
+        let res = document.getElementById(`input${this.positionRow+""+this.positionCol}`)
+        res.focus()
+      },
 
       releaseKey(event) {
         delete this.keyPress[event.key]
@@ -203,8 +222,22 @@ export default {
         }
 
         if(this.keyPress.ArrowLeft) {
-          console.log("Arah kiri")
-          return
+          //jika sudah mentok diatas kiri
+          if(this.positionCol === 0 && this.positionRow === 0) {
+            //akhir cell = panjang heads + panjang row
+            this.position("bottomRight")
+          }
+          //jika sudah mentok dikiri
+          if(this.positionCol === 0) {
+            //naik ke atas, row - 1
+            this.positionRow = this.positionRow - 1
+            this.positionCol = this.headers.length - 1
+          }
+          //normal
+          else {
+            this.positionCol = this.positionCol - 1
+          }
+          this.focusNow()
         }
 
         if(this.keyPress.ArrowRight) {
