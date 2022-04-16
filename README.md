@@ -12,10 +12,10 @@ I just wanna make html table but like excel style, just table only not the sprea
   [x] Arrow down to navigation to bottom cell
   [x] Home to the begin col
   [x] End navigation to the end col
-  [ ] Ctrl + Arrow right to navigation to the end col
-  [ ] Ctrl + Arrow left to navigation to the begin col
-  [ ] Ctrl + Arrow up to navigation to the end row
-  [ ] Ctrl + Arrow down to navigation to the begin row
+  [x] Ctrl + Arrow right to navigation to the end col
+  [x] Ctrl + Arrow left to navigation to the begin col
+  [x] Ctrl + Arrow up to navigation to the end row
+  [x] Ctrl + Arrow down to navigation to the begin row
   [x] Tab to the right cell
   [x] Shift + tab to the left cell
   [x] Enter to the bottom cell

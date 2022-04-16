@@ -17,8 +17,14 @@
 
       <tbody>
         <tr v-for="(list, index) in lists" :key="list[keys[0]]" >
-          <td v-for="(key, index2) in keys" :key="key" :tabindex="index + index2" class="">
-              <input @click="position(index, index2)" size="103" :id="'input'+index + index2" type="text" :value="list[key]">
+          <td v-for="(key, index2) in keys" :key="key">
+              <input  
+                type="text" 
+                :id="'input'+index + index2" 
+                :value="list[key]"
+                :readonly="!edit"
+                @click="position(index, index2)"
+              >
             </td>
         </tr>  
       </tbody>
@@ -165,12 +171,18 @@ export default {
             ],
             keys: ["name", "email", "phone", "city"],
             keyPress: {},
+            edit: false,
         }
     },
     methods: {
       position(row, col) {
         this.positionCol = col
         this.positionRow = row
+      },
+
+      focusNow() {
+        // console.log(`input${this.positionRow+""+this.positionCol}`)
+        document.getElementById(`input${this.positionRow+""+this.positionCol}`).focus()
       },
 
       goLeft() {
@@ -215,13 +227,8 @@ export default {
       goEndRow() {
         this.positionRow = this.lists.length - 1
       },
-
-      focusNow() {
-        console.log(this.positionRow+" "+this.positionCol)
-        document.getElementById(`input${this.positionRow+""+this.positionCol}`).focus()
-      },
-
       releaseKey(event) {
+        this.focusNow()
         delete this.keyPress[event.key]
       },
 
@@ -229,74 +236,78 @@ export default {
         this.keyPress[event.key] = true
 
         if(this.keyPress.Control && this.keyPress.ArrowRight) {
-          this.goEndRow()
-          this.focusNow()
+          this.goEndCol()
           return
         }
 
         if(this.keyPress.Control && this.keyPress.ArrowLeft) {
-          this.goBeginRow
-          this.focusNow()
+          this.goBeginCol()
           return
         }
 
         if(this.keyPress.Control && this.keyPress.ArrowUp) {
-          this.goBeginCol()
-          this.focusNow()
+          this.goBeginRow()
           return
         }
 
         if(this.keyPress.Control && this.keyPress.ArrowDown) {
           this.goEndRow()
-          this.focusNow()
           return
         }
 
         if(this.keyPress.Shift && this.keyPress.Enter) {
           this.goUpRow()
-          this.focusNow()
           return
         }
 
         // Arrow left
-        if(this.keyPress.ArrowLeft || (this.keyPress.Shift && this.keyPress.Tab)) {
+        if(this.keyPress.ArrowLeft) {
           this.goLeft()
-          this.focusNow()
           return
         }
 
         // Arrow right
-        if(this.keyPress.ArrowRight || this.keyPress.Tab) {
+        if(this.keyPress.ArrowRight) {
           this.goRight()
+          return
         }
 
         //Arrow up
         if(this.keyPress.ArrowUp) {
           this.goUpRow()
+          return
         }
 
         if(this.keyPress.ArrowDown) {
           this.goDownRow()
+          return
         }
 
         if(this.keyPress.F2) {
-          console.log("F2")
+          this.edit = true
+          // this.focusNow()
+          return
+        }
+
+        if(this.keyPress.Escape) {
+          this.edit = false
           return
         }
 
         if(this.keyPress.Home) {
           this.goBeginCol()
+          return
         }
 
         if(this.keyPress.End) {
           this.goEndCol()
+          return
         }
 
         if(this.keyPress.Enter) {
           this.goDownRow()
+          return
         }
-
-        this.focusNow()
       }
 
     },
@@ -840,6 +851,10 @@ input {
 input:focus { 
   border:2px solid #5292F7;
   outline: none;
+}
+
+.focused {
+  background-color: #5292F7;
 }
 
 </style>
