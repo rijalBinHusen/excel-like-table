@@ -186,6 +186,8 @@ export default {
           this.positionCol = this.positionCol + 1
           return
         }
+        this.goDownRow()
+        this.goBeginCol()
       },
       goBeginCol() {
         this.positionCol = 0
@@ -205,6 +207,7 @@ export default {
           this.positionRow = this.positionRow + 1
           return
         }
+        this.goBeginRow()
       },
       goBeginRow() {
         this.positionRow = 0
@@ -254,48 +257,11 @@ export default {
         if(this.keyPress.ArrowLeft) {
           this.goLeft()
           this.focusNow()
-          // // mentok diatas
-          // let up = this.positionCol === 0
-          // // mentok dikiri
-          // let left = this.positionRow === 0
-          // //jika sudah mentok diatas kiri
-          // if(left && up) {
-          //   //akhir cell = panjang heads + panjang row
-          //   this.position("bottomRight")
-          // }
-          // //jika sudah mentok dikiri
-          // else if(left) {
-          //   //naik ke atas, row - 1
-          //   this.positionRow = this.positionRow - 1
-          //   this.positionCol = this.headers.length - 1
-          // }
-          // //normal
-          // else {
-          //   this.positionCol = this.positionCol - 1
-          // }
-          // this.focusNow()
         }
 
         // Arrow right
         if(this.keyPress.ArrowRight) {
-          // mentok bawah
-          let bottom = this.positionRow === (this.lists.length -1)
-          // mentok kanan
-          let right = this.positionCol === (this.headers.length -1)
-          //jika sudah mentok dibawah kanan
-          if(bottom && right) {
-            this.position("upLeft")
-          }
-          //jika sudah mentok kanan
-          else if(right) {
-            //turun kebawah, row + 1
-            this.positionRow = this.positionRow + 1
-            this.positionCol = 0
-          }
-          //normal
-          else {
-            this.positionCol = this.positionCol + 1
-          }
+          this.goRight()
           this.focusNow()
         }
 
