@@ -91,8 +91,8 @@ export default {
           this.countDown = 10
           return
         } if(!this.countDown) {
-          console.log("selesai")
-          this.$emit("changed", this.changeRow)
+          this.$emit("changed", this.changedRow)
+          this.changedRow = []
           clearInterval(this.count)
           return
         }
@@ -155,33 +155,60 @@ export default {
       },
 
       pressKey(event) {
+        
         this.keyPress[event.key] = true
 
-        if(this.keyPress.Control && this.keyPress.ArrowRight) {
-          this.goEndCol()
+        if(this.keyPress.Shift) {
+            if(this.keyPress.Tab) {
+              this.goLeft()
+              return
+            }
+
+            if(this.keyPress.Enter) {
+              this.goUpRow()
+              return
+            }
+        }
+
+        if(event.key === "Tab") {
+          this.goRight()
           return
         }
 
-        if(this.keyPress.Control && this.keyPress.ArrowLeft) {
-          this.goBeginCol()
-          return
-        }
+        if(this.keyPress.Control) {
+          
+          if(this.keyPress.ArrowRight) {
+            this.goEndCol()
+            return
+          }
 
-        if(this.keyPress.Control && this.keyPress.ArrowUp) {
-          this.goBeginRow()
-          return
-        }
+          if(this.keyPress.ArrowLeft) {
+            this.goBeginCol()
+            return
+          }
+        
+          if(this.keyPress.ArrowUp) {
+            this.goBeginRow()
+            return
+          }
 
-        if(this.keyPress.Control && this.keyPress.ArrowDown) {
-          this.goEndRow()
-          return
-        }
+          if(this.keyPress.ArrowDown) {
+            this.goEndRow()
+            return
+          }
+        
+          if(this.keyPress.Home) {
+            this.goBeginRow()
+            this.goBeginCol()
+            return
+          }
 
-        if(this.keyPress.Shift && this.keyPress.Enter) {
-          this.goUpRow()
-          return
+          if(this.keyPress.End) {
+            this.goEndRow()
+            this.goEndCol()
+            return
+          }
         }
-
         // Arrow left
         if(this.keyPress.ArrowLeft) {
           this.goLeft()

@@ -3,7 +3,7 @@
     :headers="headers" 
     :lists="lists" 
     :keys="keys"
-    
+    @changed="notify($event)"    
   />
 </template>
 
@@ -142,6 +142,11 @@ export default {
   },
   components: {
     ExcelTable
+  },
+  methods: {
+    notify(ev) {
+      alert("The line you've been changed is: "+JSON.stringify(ev))
+    }
   }
 }
 </script>

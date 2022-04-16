@@ -26,9 +26,7 @@ I just wanna make html table but like excel style, just table only not the sprea
 
 # How to add this component to your project?
 
-```
 Just copy paste [this] (https://github.com/rijalBinHusen/excel-like-table/blob/master/src/components/ExcelTable.vue) as your component
-```
 
 ## Project setup
 ```
