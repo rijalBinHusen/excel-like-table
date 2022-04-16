@@ -17,7 +17,7 @@
 
       <tbody>
         <tr v-for="(list, index) in lists" :key="list[keys[0]]" >
-          <td v-for="(key, index2) in keys" :key="key" class="">
+          <td v-for="(key, index2) in keys" :key="key" :tabindex="index + index2" class="">
               <input @click="position(index, index2)" size="103" :id="'input'+index + index2" type="text" :value="list[key]">
             </td>
         </tr>  
@@ -229,37 +229,44 @@ export default {
         this.keyPress[event.key] = true
 
         if(this.keyPress.Control && this.keyPress.ArrowRight) {
-          console.log("Control + Arah kanan")
+          this.goEndRow()
+          this.focusNow()
           return
         }
 
         if(this.keyPress.Control && this.keyPress.ArrowLeft) {
-          console.log("Control + Arah Kiri")
+          this.goBeginRow
+          this.focusNow()
           return
         }
 
         if(this.keyPress.Control && this.keyPress.ArrowUp) {
-          console.log("Control + Arah Atas")
+          this.goBeginCol()
+          this.focusNow()
           return
         }
 
         if(this.keyPress.Control && this.keyPress.ArrowDown) {
-          console.log("Control + Arah bawah")
+          this.goEndRow()
+          this.focusNow()
           return
         }
 
         if(this.keyPress.Shift && this.keyPress.Enter) {
-          console.log("Shift + Enter")
+          this.goUpRow()
+          this.focusNow()
           return
         }
 
         // Arrow left
-        if(this.keyPress.ArrowLeft) {
+        if(this.keyPress.ArrowLeft || (this.keyPress.Shift && this.keyPress.Tab)) {
           this.goLeft()
+          this.focusNow()
+          return
         }
 
         // Arrow right
-        if(this.keyPress.ArrowRight) {
+        if(this.keyPress.ArrowRight || this.keyPress.Tab) {
           this.goRight()
         }
 
@@ -286,8 +293,7 @@ export default {
         }
 
         if(this.keyPress.Enter) {
-          console.log("Enter")
-          return
+          this.goDownRow()
         }
 
         this.focusNow()

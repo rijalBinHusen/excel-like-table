@@ -16,10 +16,10 @@ I just wanna make html table but like excel style, just table only not the sprea
   [ ] Ctrl + Arrow left to navigation to the begin col
   [ ] Ctrl + Arrow up to navigation to the end row
   [ ] Ctrl + Arrow down to navigation to the begin row
-  [x] Tab to the right cell, **active by default**
-  [x] Shift + tab to the left cell **active by default**
-  [ ] Enter to the bottom cell
-  [ ] Shift + enter to the up cell
+  [x] Tab to the right cell
+  [x] Shift + tab to the left cell
+  [x] Enter to the bottom cell
+  [x] Shift + enter to the up cell
   [ ] F2 to edit the cell (optional)
 
 - [ ] width cell auto fit with the length string, wrap the text if width is on maximum
