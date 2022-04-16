@@ -4,6 +4,10 @@ I just wanna make html table but like excel style, just table only not the sprea
 
 ---
 
+## How the table look like
+
+![excel-like-table](public/Screenshot_2022-04-17_06-45-25.png)
+
 ## todo
 - [x] Keyboard event in spreadsheet style
 - [x] Arrow right to navigation to right cell
@@ -26,7 +30,7 @@ I just wanna make html table but like excel style, just table only not the sprea
 
 # How to add this component to your project?
 
-Just copy paste [this] (https://github.com/rijalBinHusen/excel-like-table/blob/master/src/components/ExcelTable.vue) as your component
+Just copy paste [this] (https://github.com/rijalBinHusen/excel-like-table/blob/master/src/components/ExcelTable.vue). as your component
 
 ## Project setup
 ```

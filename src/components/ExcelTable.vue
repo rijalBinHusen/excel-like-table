@@ -71,7 +71,6 @@ export default {
     emits: ["changed"],
     methods: {
       changed(ev) {
-        console.log(ev)
         this.edit = false
         for(let i = 0; i < this.headers.length; i++) {
           document.getElementById(`input${ev+""+i}`).style.fontWeight = "bold"
@@ -91,9 +90,14 @@ export default {
           this.countDown = 10
           return
         } if(!this.countDown) {
-          this.$emit("changed", this.changedRow)
-          this.changedRow = []
           clearInterval(this.count)
+          this.$emit("changed", this.changedRow)
+          this.changedRow.forEach((val) => {
+            this.headers.forEach((val2, index) => {
+              document.getElementById(`input${val+""+index}`).style.fontWeight = "normal"
+            })
+          })
+          this.changedRow = []
           return
         }
         this.countDown = this.countDown - 1
@@ -156,6 +160,61 @@ export default {
 
       pressKey(event) {
         
+        if(event.key === "Tab") {
+          this.goRight()
+          return
+        }
+        
+        // Arrow left
+        if(event.key === "ArrowLeft") {
+          this.goLeft()
+          return
+        }
+
+        // Arrow right
+        if(event.key === "ArrowRight") {
+          this.goRight()
+          return
+        }
+
+        //Arrow up
+        if(event.key === "ArrowUp") {
+          this.goUpRow()
+          return
+        }
+
+        if(event.key === "ArrowDown") {
+          this.goDownRow()
+          return
+        }
+
+        if(event.key === "F2") {
+          this.edit = true
+          // this.focusNow()
+          return
+        }
+
+        if(event.key === "Escape") {
+          this.edit = false
+          return
+        }
+
+        if(event.key === "Home") {
+          this.goBeginCol()
+          return
+        }
+
+        if(event.key === "End") {
+          this.goEndCol()
+          return
+        }
+
+        if(event.key === "Enter") {
+          this.goDownRow()
+          return
+        }
+
+        // Combination key || Combination key || Combination key || Combination key || 
         this.keyPress[event.key] = true
 
         if(this.keyPress.Shift) {
@@ -168,11 +227,6 @@ export default {
               this.goUpRow()
               return
             }
-        }
-
-        if(event.key === "Tab") {
-          this.goRight()
-          return
         }
 
         if(this.keyPress.Control) {
@@ -209,54 +263,7 @@ export default {
             return
           }
         }
-        // Arrow left
-        if(this.keyPress.ArrowLeft) {
-          this.goLeft()
-          return
-        }
-
-        // Arrow right
-        if(this.keyPress.ArrowRight) {
-          this.goRight()
-          return
-        }
-
-        //Arrow up
-        if(this.keyPress.ArrowUp) {
-          this.goUpRow()
-          return
-        }
-
-        if(this.keyPress.ArrowDown) {
-          this.goDownRow()
-          return
-        }
-
-        if(this.keyPress.F2) {
-          this.edit = true
-          // this.focusNow()
-          return
-        }
-
-        if(this.keyPress.Escape) {
-          this.edit = false
-          return
-        }
-
-        if(this.keyPress.Home) {
-          this.goBeginCol()
-          return
-        }
-
-        if(this.keyPress.End) {
-          this.goEndCol()
-          return
-        }
-
-        if(this.keyPress.Enter) {
-          this.goDownRow()
-          return
-        }
+        // End of Combination key || Combination key || Combination key || 
       }
 
     },
