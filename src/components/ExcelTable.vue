@@ -256,30 +256,20 @@ export default {
         // Arrow left
         if(this.keyPress.ArrowLeft) {
           this.goLeft()
-          this.focusNow()
         }
 
         // Arrow right
         if(this.keyPress.ArrowRight) {
           this.goRight()
-          this.focusNow()
         }
 
         //Arrow up
         if(this.keyPress.ArrowUp) {
-          // jika tidak mentokk atas
-          if(this.positionRow !== 0) {
-            this.positionRow = this.positionRow - 1
-          }
-          this.focusNow()
+          this.goUpRow()
         }
 
         if(this.keyPress.ArrowDown) {
-          // jika tidak mentokk bawah
-          if(this.positionRow !== (this.lists.length - 1)) {
-            this.positionRow = this.positionRow + 1
-          }
-          this.focusNow()
+          this.goDownRow()
         }
 
         if(this.keyPress.F2) {
@@ -288,19 +278,19 @@ export default {
         }
 
         if(this.keyPress.Home) {
-          console.log("Home")
-          return
+          this.goBeginCol()
         }
 
         if(this.keyPress.End) {
-          console.log("End")
-          return
+          this.goEndCol()
         }
 
         if(this.keyPress.Enter) {
           console.log("Enter")
           return
         }
+
+        this.focusNow()
       }
 
     },
